@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Supplier</title>
+  <link rel="stylesheet" href="/css/products.css">
+</head>
+<body>
+  <header>
+    <h1>Edit Supplier</h1>
+  </header>
+
+
+
+  <!-- Edit Supplier Form -->
+  <form action="/suppliers/edit/<%= supplier.id %>" method="POST">
+    <label for="name">Supplier Name:</label>
+    <input type="text" id="name" name="name" value="<%= supplier.name %>" required><br><br>
+
+    <label for="country">Country:</label>
+    <input type="text" id="country" name="country" value="<%= supplier.country %>" required><br><br>
+
+    <button class = "btn" type="submit">Save Changes</button>
+  </form>
+</body>
+
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/suppliers.css">
+</head>
+<body>
+  <header>
+    <h1><%= title %></h1>
+  </header>
+
+  <!-- Filter and Sorting Form -->
+  <form action="/suppliers" method="GET" class="filters-form">
+    <div class="filters">
+      <select id="name-filter" name="name" onchange="this.form.submit()">
+        <option value="">All Names</option>
+        <% supplierNames.forEach(supplier => { %>
+          <option value="<%= supplier.name %>" <%= selectedName === supplier.name ? 'selected' : '' %>><%= supplier.name %></option>
+        <% }); %>
+      </select>
+
+      <select id="country-filter" name="country" onchange="this.form.submit()">
+        <option value="">All Countries</option>
+        <% countries.forEach(country => { %>
+          <option value="<%= country.country %>" <%= selectedCountry === country.country ? 'selected' : '' %>><%= country.country %></option>
+        <% }); %>
+      </select>
+    </div>
+  </form>
+
+  <table class="suppliers-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Country</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% suppliers.forEach(supplier => { %>
+        <tr>
+          <td><%= supplier.id %></td>
+          <td><%= supplier.name %></td>
+          <td><%= supplier.country %></td>
+          <td>
+            <div class="action-buttons">
+              <button class="edit-button" data-id="<%= supplier.id %>">Edit</button>
+              <button class="delete-button" data-id="<%= supplier.id %>">Delete</button>
+            </div>
+          </td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+
+  <form action="/suppliers" method="POST" class="add-supplier-form">
+    <h3>Add New Supplier</h3>
+    <label for="name">Supplier Name:</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="country">Country:</label>
+    <input type="text" id="country" name="country" required>
+
+    <button class="btn" id="supplier-btn" type="submit">Add Supplier</button>
+  </form>
+
+  <script>
+    // Handle Delete Button Click
+    document.querySelectorAll('.delete-button').forEach(button => {
+      button.addEventListener('click', async function(event) {
+        const supplierId = event.target.getAttribute('data-id');
+        const row = event.target.closest('tr');
+
+        if (confirm("Are you sure you want to delete this supplier?")) {
+          try {
+            const response = await fetch(`/suppliers/${supplierId}`, {
+              method: 'DELETE',
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+              alert(data.message);
+              row.remove(); 
+            } else {
+              alert(data.message); 
+            }
+          } catch (error) {
+            alert("An error occurred while deleting the supplier.");
+            console.error(error);
+          }
+        }
+      });
+    });
+
+    // Handle Edit Button Click
+    document.querySelectorAll('.edit-button').forEach(button => {
+      button.addEventListener('click', function() {
+        const supplierId = this.getAttribute('data-id');
+        window.location.href = `/suppliers/${supplierId}`; // Redirect to the edit page for this supplier
+      });
+    });
+  </script>
+
+  <footer>
+    <a class="btn" href="/">Back to Home</a>
+  </footer>
+</body>
+</html>
+

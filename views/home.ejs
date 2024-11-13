@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <header>
+    <h1>Inventory Management Dashboard</h1>
+  </header>
+
+  <section class="dashboard">
+    <div class="dashboard-card">
+      <h2>Manage Products</h2>
+      <a href="/products" class="btn">Go to Products</a>
+    </div>
+    <div class="dashboard-card">
+      <h2>Manage Categories</h2>
+      <a href="/categories" class="btn">Go to Categories</a>
+    </div>
+    <div class="dashboard-card">
+      <h2>Manage Suppliers</h2>
+      <a href="/suppliers" class="btn">Go to Suppliers</a>
+    </div>
+  </section>
+
+  <!-- Quick Stats Section -->
+  <section class="quick-stats">
+    <h3>Quick Stats</h3>
+    <ul>
+      <li>Total Products: <%= productCount %></li>
+      <li>Total Categories: <%= categoryCount %></li>
+      <li>Total Suppliers: <%= supplierCount %></li>
+    </ul>
+  </section>
+</body>
+</html>
