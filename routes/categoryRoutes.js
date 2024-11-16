@@ -12,7 +12,7 @@ const router = express.Router();
 // Route to list all categories
 router.get('/', listCategories);
 
-// Route to show the form to add a new category
+// Route to show the form to add a new category <
 router.get('/add', (req, res) => {
   res.render('addCategory');  // Render the addCategory form view
 });
